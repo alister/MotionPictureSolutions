@@ -1,0 +1,17 @@
+{
+    "name": "alister/motion-picture-solutions",
+    "description": "coding test, category tree",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Alister\\MotionPictureSolutions\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alister Bulman",
+            "email": "abulman@gmail.com"
+        }
+    ],
+    "require": {}
+}
