@@ -27,7 +27,7 @@ class CategoryTree
      * 
      * If there was so many more, it would be in a DB, or something like a Bloom filter.
      * 
-     * @var array<string>
+     * @var array<CategoryItem>
      */
     private array $knownCategories = [];
 
