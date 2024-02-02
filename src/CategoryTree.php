@@ -48,22 +48,32 @@ class CategoryTree
         $this->knownCategories[$categoryName] = new CategoryItem($categoryName, $parent);
     }
 
-    public function getChildren(string $parent): array
-    {
-        return [];
-    }
-    
-    public function getPath(string $category): array
+    public function getChildren(string $parentName): array
     {
         return [];
     }
 
-    private function createRoot(string $category): void
+    /**
+     * Traverse up from the current category, through the parents to the root.
+     */
+    public function getPath(string $categoryName): array
     {
-        $this->assertCategoryDoesNotExist($category);
+        $this->assertCategoryExists($categoryName);
 
-        // $this->categoryRoots[$category] = true;
-        $this->knownCategories[$category] = new CategoryItem($category);
+        $item = $this->knownCategories[$categoryName];
+        do  {
+            $path[] = $item->name;
+            $item = $item->categoryParent;
+        } while($item !== null);
+
+        return $path;
+    }
+
+    private function createRoot(string $categoryName): void
+    {
+        $this->assertCategoryDoesNotExist($categoryName);
+
+        $this->knownCategories[$categoryName] = new CategoryItem($categoryName);
     }
 
     private function assertCategoryExists(string $categoryName): void
