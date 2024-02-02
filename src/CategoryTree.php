@@ -19,13 +19,15 @@ namespace Alister\MotionPictureSolutions;
  */
 class CategoryTree
 {
-    public function addCategory(string $category, string $parent=null) : void
+    public function addCategory(string $category, string $parent = null): void
     {
     }
+
     public function getChildren(string $parent) : array
     {
         return [];
     }
+
     public function getPath(string $category) : array
     {
         return [];

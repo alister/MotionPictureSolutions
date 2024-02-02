@@ -8,11 +8,18 @@
             "Alister\\MotionPictureSolutions\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Alister\\MotionPictureSolutions\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Alister Bulman",
             "email": "abulman@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    }
 }
