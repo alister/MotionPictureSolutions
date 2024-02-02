@@ -59,6 +59,8 @@ class CategoryTree
      */
     public function getChildren(string $parentName): array
     {
+        $this->assertCategoryExists($parentName);
+
         $parent = $this->knownCategories[$parentName];
 
         $children = [];
