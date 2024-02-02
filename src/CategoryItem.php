@@ -4,6 +4,10 @@ namespace Alister\MotionPictureSolutions;
 
 class CategoryItem
 {
+    /**
+     * @var string[]
+     * actually its more like array<string,string>
+     */
     public array $subCategories = [];
 
     public function __construct(
@@ -11,6 +15,12 @@ class CategoryItem
         public ?self $categoryParent = null,
     )
     {
+    }
+
+    public function addChild(string $categoryName): void
+    {
+        // use the key to avoid dupes.
+        $this->subCategories[$categoryName] = $categoryName;
     }
 
     /**

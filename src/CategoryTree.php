@@ -19,9 +19,6 @@ namespace Alister\MotionPictureSolutions;
  */
 class CategoryTree
 {
-    /** @var array<CategoryItem> */
-    private array $categoryRoots = [];
-
     /**
      * Keep a note of what we already have.
      * 
@@ -34,6 +31,12 @@ class CategoryTree
      */
     private array $knownCategories = [];
 
+    /**
+     * To save some complexity (and large, complex, object trees), store most of the individual 
+     * CategoryItems by name, and lookup via `$this->knownCategories[name]`.
+     * 
+     * I do store the parent-category as the object though, show show how easy it is to access.
+     */
     public function addCategory(string $categoryName, string $parentName = null): void
     {
         if ($parentName === null) {
@@ -41,20 +44,36 @@ class CategoryTree
 
             return;
         }
+
         $this->assertCategoryExists($parentName);
         $this->assertCategoryDoesNotExist($categoryName);
         
         $parent = $this->knownCategories[$parentName];
-        $this->knownCategories[$categoryName] = new CategoryItem($categoryName, $parent);
+        $categoryItem = new CategoryItem($categoryName, $parent);
+        $this->knownCategories[$categoryName] = $categoryItem;
+        $parent->addChild($categoryName);
     }
 
+    /** 
+     * Get the immediate children of a category. 
+     */
     public function getChildren(string $parentName): array
     {
-        return [];
+        $parent = $this->knownCategories[$parentName];
+
+        $children = [];
+        foreach($parent->subCategories as $categoryName) {
+            // could just `yield $categoryName;`, if the return was `iterable`.
+            $children[] = $categoryName;
+        }
+        return $children;
     }
 
     /**
-     * Traverse up from the current category, through the parents to the root.
+     * Traverse up from the current category, through parent(s) to the root.
+     * 
+     * This uses the categoryParent which is stored as a CategoryItem object.
+     * Elsewhere, we look up via the name.
      */
     public function getPath(string $categoryName): array
     {
