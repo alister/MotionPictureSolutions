@@ -2,6 +2,7 @@
     "name": "alister/motion-picture-solutions",
     "description": "coding test, category tree",
     "type": "project",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "Alister\\MotionPictureSolutions\\": "src/"
